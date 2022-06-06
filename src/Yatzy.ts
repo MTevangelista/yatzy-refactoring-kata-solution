@@ -62,29 +62,31 @@ export default class Yatzy {
 		return s;
 	}
 
-	static score_pair(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-		counts[d1 - 1]++;
-		counts[d2 - 1]++;
-		counts[d3 - 1]++;
-		counts[d4 - 1]++;
-		counts[d5 - 1]++;
+	private static buildTallies(dice: number[]): number[] {
+		var tallies: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
+
+		for (let index = 0; index < dice.length; index++) {
+			const element = dice[index];
+			tallies[element - 1]++
+		}
+
+		return tallies
+	}
+
+	static score_pair(playValues: number[]): number {
+		var tallies: number[] = this.buildTallies(playValues)
 		var at;
-		for (at = 0; at != 6; at++) if (counts[6 - at - 1] >= 2) return (6 - at) * 2;
+		for (at = 0; at != 6; at++) if (tallies[6 - at - 1] >= 2) return (6 - at) * 2;
 		return 0;
 	}
 
-	static two_pair(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var counts = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-		counts[d1 - 1]++;
-		counts[d2 - 1]++;
-		counts[d3 - 1]++;
-		counts[d4 - 1]++;
-		counts[d5 - 1]++;
+	static two_pair(playValues: number[]): number {
+		var tallies: number[] = this.buildTallies(playValues)
 		var n = 0;
 		var score = 0;
+
 		for (let i = 0; i < 6; i += 1)
-			if (counts[6 - i - 1] >= 2) {
+			if (tallies[6 - i - 1] >= 2) {
 				n++;
 				score += 6 - i;
 			}
@@ -92,68 +94,43 @@ export default class Yatzy {
 		else return 0;
 	}
 
-	static four_of_a_kind(_1: number, _2: number, d3: number, d4: number, d5: number): number {
-		var tallies;
-		tallies = [0, 0, 0, 0, 0, 0, 0, 0];
-		tallies[_1 - 1]++;
-		tallies[_2 - 1]++;
-		tallies[d3 - 1]++;
-		tallies[d4 - 1]++;
-		tallies[d5 - 1]++;
+	static four_of_a_kind(playValues: number[]): number {
+		var tallies: number[] = this.buildTallies(playValues)
+
 		for (let i = 0; i < 6; i++) if (tallies[i] >= 4) return (i + 1) * 4;
 		return 0;
 	}
 
-	static three_of_a_kind(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var t;
-		t = [0, 0, 0, 0, 0, 0, 0, 0, 0];
-		t[d1 - 1]++;
-		t[d2 - 1]++;
-		t[d3 - 1]++;
-		t[d4 - 1]++;
-		t[d5 - 1]++;
-		for (let i = 0; i < 6; i++) if (t[i] >= 3) return (i + 1) * 3;
+	static three_of_a_kind(playValues: number[]): number {
+		var tallies: number[] = this.buildTallies(playValues)
+
+		for (let i = 0; i < 6; i++) if (tallies[i] >= 3) return (i + 1) * 3;
 		return 0;
 	}
 
-	static smallStraight(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var tallies;
-		tallies = [0, 0, 0, 0, 0, 0, 0];
-		tallies[d1 - 1] += 1;
-		tallies[d2 - 1] += 1;
-		tallies[d3 - 1] += 1;
-		tallies[d4 - 1] += 1;
-		tallies[d5 - 1] += 1;
+	static smallStraight(playValues: number[]): number {
+		var tallies: number[] = this.buildTallies(playValues)
+
 		if (tallies[0] == 1 && tallies[1] == 1 && tallies[2] == 1 && tallies[3] == 1 && tallies[4] == 1) return 15;
 		return 0;
 	}
 
-	static largeStraight(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var tallies;
-		tallies = [0, 0, 0, 0, 0, 0, 0, 0];
-		tallies[d1 - 1] += 1;
-		tallies[d2 - 1] += 1;
-		tallies[d3 - 1] += 1;
-		tallies[d4 - 1] += 1;
-		tallies[d5 - 1] += 1;
+	static largeStraight(playValues: number[]): number {
+		var tallies: number[] = this.buildTallies(playValues)
+
 		if (tallies[1] == 1 && tallies[2] == 1 && tallies[3] == 1 && tallies[4] == 1 && tallies[5] == 1) return 20;
 		return 0;
 	}
 
-	static fullHouse(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var tallies;
+	static fullHouse(playValues: number[]): number {
+		var tallies: number[];
 		var _2 = false;
 		var i;
 		var _2_at = 0;
 		var _3 = false;
 		var _3_at = 0;
 
-		tallies = [0, 0, 0, 0, 0, 0, 0, 0];
-		tallies[d1 - 1] += 1;
-		tallies[d2 - 1] += 1;
-		tallies[d3 - 1] += 1;
-		tallies[d4 - 1] += 1;
-		tallies[d5 - 1] += 1;
+		tallies = this.buildTallies(playValues)
 
 		for (i = 0; i != 6; i += 1)
 			if (tallies[i] == 2) {
