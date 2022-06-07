@@ -9,6 +9,10 @@ export default class Yatzy {
 		this.dice = playValues
 	}
 
+	private compareDiceValueAtIndex(index: number, expectedNumber: number): boolean {
+        return this.getDiece()[index] == expectedNumber ? true : false
+    }
+
 	private static buildTallies(dice: number[]): number[] {
 		var tallies: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -19,7 +23,6 @@ export default class Yatzy {
 
 		return tallies
 	}
-
 
 	static chance(playValues: number[]): number {
 		var total = 0;
@@ -153,7 +156,7 @@ export default class Yatzy {
 		var sum;
 		sum = 0;
 		for (let at = 0; at != 5; at++) {
-			if (this.getDiece()[at] == 4) {
+			if (this.compareDiceValueAtIndex(at, 4)) {
 				sum += 4;
 			}
 		}
@@ -163,13 +166,13 @@ export default class Yatzy {
 	fives(): number {
 		let s = 0;
 		var i;
-		for (i = 0; i < this.getDiece().length; i++) if (this.getDiece()[i] == 5) s = s + 5;
+		for (i = 0; i < this.getDiece().length; i++) if (this.compareDiceValueAtIndex(i, 5)) s = s + 5;
 		return s;
 	}
 
 	sixes(): number {
 		let sum = 0;
-		for (var at = 0; at < this.getDiece().length; at++) if (this.getDiece()[at] == 6) sum = sum + 6;
+		for (var at = 0; at < this.getDiece().length; at++) if (this.compareDiceValueAtIndex(at, 6)) sum = sum + 6;
 		return sum;
 	}
 }
