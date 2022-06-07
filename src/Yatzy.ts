@@ -5,10 +5,12 @@ export default class Yatzy {
 	private category: GameCategory
 
 	getDiece(): number[] {
-		let test = this.category
-		console.log(test);
 		return this.dice
 	} 
+
+	getCategory(): GameCategory {
+		return this.category
+	}
 
 	constructor(dice: number[], category: GameCategory) {
 		this.dice = dice
@@ -30,6 +32,27 @@ export default class Yatzy {
 		return tallies
 	}
 
+	calculateScoreOfGroupOnesToThreesByCategory(): number {
+		var sum = 0
+
+		for (let index = 0; index < this.getDiece().length; index++) {
+			const element = this.getDiece()[index];
+			if (element == this.getCategory()) sum += this.getCategory()
+		}
+		return sum
+	}
+
+	calculateScoreOfGroupFourToSixesByCategory(): number {
+		var sum = 0;
+		
+		for (let i = 0; i < this.getDiece().length; i++) {
+			if (this.compareDiceValueAtIndex(i, this.getCategory())) {
+				sum = sum + this.getCategory();
+			}
+		}
+		return sum;
+	}
+
 	chance(): number {
 		var total = 0;
 		total += this.getDiece()[0];
@@ -49,38 +72,6 @@ export default class Yatzy {
 		}
 		for (i = 0; i != 6; i++) if (counts[i] == 5) return 50;
 		return 0;
-	}
-
-	ones(): number {
-		var sum = 0;
-		if (this.getDiece()[0] == 1) sum++;
-		if (this.getDiece()[1] == 1) sum++;
-		if (this.getDiece()[2] == 1) sum++;
-		if (this.getDiece()[3] == 1) sum++;
-		if (this.getDiece()[4] == 1) sum++;
-
-		return sum;
-	}
-
-	twos(): number {
-		var sum = 0;
-		if (this.getDiece()[0] == 2) sum += 2;
-		if (this.getDiece()[1] == 2) sum += 2;
-		if (this.getDiece()[2] == 2) sum += 2;
-		if (this.getDiece()[3] == 2) sum += 2;
-		if (this.getDiece()[4] == 2) sum += 2;
-		return sum;
-	}
-
-	threes(): number {
-		var s;
-		s = 0;
-		if (this.getDiece()[0] == 3) s += 3;
-		if (this.getDiece()[1] == 3) s += 3;
-		if (this.getDiece()[2] == 3) s += 3;
-		if (this.getDiece()[3] == 3) s += 3;
-		if (this.getDiece()[4] == 3) s += 3;
-		return s;
 	}
 
 	score_pair(): number {
@@ -156,29 +147,5 @@ export default class Yatzy {
 
 		if (_2 && _3) return _2_at * 2 + _3_at * 3;
 		else return 0;
-	}
-
-	fours(): number {
-		var sum;
-		sum = 0;
-		for (let at = 0; at != 5; at++) {
-			if (this.compareDiceValueAtIndex(at, 4)) {
-				sum += 4;
-			}
-		}
-		return sum;
-	}
-
-	fives(): number {
-		let s = 0;
-		var i;
-		for (i = 0; i < this.getDiece().length; i++) if (this.compareDiceValueAtIndex(i, 5)) s = s + 5;
-		return s;
-	}
-
-	sixes(): number {
-		let sum = 0;
-		for (var at = 0; at < this.getDiece().length; at++) if (this.compareDiceValueAtIndex(at, 6)) sum = sum + 6;
-		return sum;
 	}
 }

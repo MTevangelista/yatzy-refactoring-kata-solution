@@ -20,48 +20,48 @@ describe('Yatzy', () => {
 
 describe('Ones', () => {
     it('score the sum of 1s', () => {
-        assert.strictEqual(1, new Yatzy([1, 2, 3, 4, 5], GameCategory.Ones).ones())
-        assert.strictEqual(2, new Yatzy([1, 2, 1, 4, 5], GameCategory.Ones).ones())
-        assert.strictEqual(0, new Yatzy([6, 2, 2, 4, 5], GameCategory.Ones).ones())
-        assert.strictEqual(4, new Yatzy([1, 2, 1, 1, 1], GameCategory.Ones).ones())
+        assert.strictEqual(1, new Yatzy([1, 2, 3, 4, 5], GameCategory.Ones).calculateScoreOfGroupOnesToThreesByCategory())
+        assert.strictEqual(2, new Yatzy([1, 2, 1, 4, 5], GameCategory.Ones).calculateScoreOfGroupOnesToThreesByCategory())
+        assert.strictEqual(0, new Yatzy([6, 2, 2, 4, 5], GameCategory.Ones).calculateScoreOfGroupOnesToThreesByCategory())
+        assert.strictEqual(4, new Yatzy([1, 2, 1, 1, 1], GameCategory.Ones).calculateScoreOfGroupOnesToThreesByCategory())
     });
 });
 
 describe('Twos', () => {
     it('score the sum of 2s', () => {
-        assert.strictEqual(4, new Yatzy([1, 2, 3, 2, 6], GameCategory.Ones).twos())
-        assert.strictEqual(10, new Yatzy([2, 2, 2, 2, 2], GameCategory.Ones).twos())
+        assert.strictEqual(4, new Yatzy([1, 2, 3, 2, 6], GameCategory.Twos).calculateScoreOfGroupOnesToThreesByCategory())
+        assert.strictEqual(10, new Yatzy([2, 2, 2, 2, 2], GameCategory.Twos).calculateScoreOfGroupOnesToThreesByCategory())
     });
 });
 
 describe('Threes', () => {
     it('score the sum of 3s', () => {
-        assert.strictEqual(6, new Yatzy([1, 2, 3, 2, 3], GameCategory.Ones).threes())
-        assert.strictEqual(12, new Yatzy([2, 3, 3, 3, 3], GameCategory.Ones).threes())
+        assert.strictEqual(6, new Yatzy([1, 2, 3, 2, 3], GameCategory.Threes).calculateScoreOfGroupOnesToThreesByCategory())
+        assert.strictEqual(12, new Yatzy([2, 3, 3, 3, 3], GameCategory.Threes).calculateScoreOfGroupOnesToThreesByCategory())
     });
 });
 
 describe('Fours', () => {
     it('score the sum of 4s', () => {
-        assert.strictEqual(12, new Yatzy([4, 4, 4, 5, 5], GameCategory.Fours).fours());
-        assert.strictEqual(8, new Yatzy([4, 4, 5, 5, 5], GameCategory.Fours).fours());
-        assert.strictEqual(4, new Yatzy([4, 5, 5, 5, 5], GameCategory.Fours).fours());
+        assert.strictEqual(12, new Yatzy([4, 4, 4, 5, 5], GameCategory.Fours).calculateScoreOfGroupFourToSixesByCategory());
+        assert.strictEqual(8, new Yatzy([4, 4, 5, 5, 5], GameCategory.Fours).calculateScoreOfGroupFourToSixesByCategory());
+        assert.strictEqual(4, new Yatzy([4, 5, 5, 5, 5], GameCategory.Fours).calculateScoreOfGroupFourToSixesByCategory());
     });
 });
 
 describe('Fives', () => {
     it('score the sum of fives', () => {
-        assert.strictEqual(10, new Yatzy([4, 4, 4, 5, 5], GameCategory.Fives).fives());
-        assert.strictEqual(15, new Yatzy([4, 4, 5, 5, 5], GameCategory.Fives).fives());
-        assert.strictEqual(20, new Yatzy([4, 5, 5, 5, 5], GameCategory.Fives).fives());
+        assert.strictEqual(10, new Yatzy([4, 4, 4, 5, 5], GameCategory.Fives).calculateScoreOfGroupFourToSixesByCategory());
+        assert.strictEqual(15, new Yatzy([4, 4, 5, 5, 5], GameCategory.Fives).calculateScoreOfGroupFourToSixesByCategory());
+        assert.strictEqual(20, new Yatzy([4, 5, 5, 5, 5], GameCategory.Fives).calculateScoreOfGroupFourToSixesByCategory());
     });
 });
 
 describe('Sixes', () => {
     it('score the sum of sixes', () => {
-        assert.strictEqual(0, new Yatzy([4, 4, 4, 5, 5], GameCategory.Sixes).sixes());
-        assert.strictEqual(6, new Yatzy([4, 4, 6, 5, 5], GameCategory.Sixes).sixes());
-        assert.strictEqual(18, new Yatzy([6, 5, 6, 6, 5], GameCategory.Sixes).sixes());
+        assert.strictEqual(0, new Yatzy([4, 4, 4, 5, 5], GameCategory.Sixes).calculateScoreOfGroupFourToSixesByCategory());
+        assert.strictEqual(6, new Yatzy([4, 4, 6, 5, 5], GameCategory.Sixes).calculateScoreOfGroupFourToSixesByCategory());
+        assert.strictEqual(18, new Yatzy([6, 5, 6, 6, 5], GameCategory.Sixes).calculateScoreOfGroupFourToSixesByCategory());
     });
 });
 
