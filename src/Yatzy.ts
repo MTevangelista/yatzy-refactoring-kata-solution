@@ -4,7 +4,7 @@ export default class Yatzy {
 	private dice: number[];
 	private category: GameCategory
 
-	getDiece(): number[] {
+	getDice(): number[] {
 		return this.dice
 	} 
 
@@ -18,14 +18,14 @@ export default class Yatzy {
 	}
 
 	private compareDiceValueAtIndex(index: number, expectedNumber: number): boolean {
-        return this.getDiece()[index] == expectedNumber ? true : false
+        return this.getDice()[index] == expectedNumber ? true : false
     }
 
 	private buildTallies(): number[] {
 		var tallies: number[] = [0, 0, 0, 0, 0, 0, 0, 0]
 
-		for (let index = 0; index < this.getDiece().length; index++) {
-			const element = this.getDiece()[index];
+		for (let index = 0; index < this.getDice().length; index++) {
+			const element = this.getDice()[index];
 			tallies[element - 1]++
 		}
 
@@ -35,8 +35,8 @@ export default class Yatzy {
 	calculateScoreOfGroupOnesToThreesByCategory(): number {
 		var sum = 0
 
-		for (let index = 0; index < this.getDiece().length; index++) {
-			const element = this.getDiece()[index];
+		for (let index = 0; index < this.getDice().length; index++) {
+			const element = this.getDice()[index];
 			if (element == this.getCategory()) sum += this.getCategory()
 		}
 		return sum
@@ -45,7 +45,7 @@ export default class Yatzy {
 	calculateScoreOfGroupFourToSixesByCategory(): number {
 		var sum = 0;
 		
-		for (let i = 0; i < this.getDiece().length; i++) {
+		for (let i = 0; i < this.getDice().length; i++) {
 			if (this.compareDiceValueAtIndex(i, this.getCategory())) {
 				sum = sum + this.getCategory();
 			}
@@ -55,19 +55,19 @@ export default class Yatzy {
 
 	chance(): number {
 		var total = 0;
-		total += this.getDiece()[0];
-		total += this.getDiece()[1];
-		total += this.getDiece()[2];
-		total += this.getDiece()[3];
-		total += this.getDiece()[4];
+		total += this.getDice()[0];
+		total += this.getDice()[1];
+		total += this.getDice()[2];
+		total += this.getDice()[3];
+		total += this.getDice()[4];
 		return total;
 	}
 
 	yatzy(): number {
 		var counts = [0, 0, 0, 0, 0, 0, 0, 0];
 
-		for (var i = 0; i != this.getDiece().length; ++i) {
-			var die = this.getDiece()[i];
+		for (var i = 0; i != this.getDice().length; ++i) {
+			var die = this.getDice()[i];
 			counts[die - 1]++;
 		}
 		for (i = 0; i != 6; i++) if (counts[i] == 5) return 50;
