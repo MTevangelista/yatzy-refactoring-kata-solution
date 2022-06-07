@@ -1,65 +1,12 @@
 export default class Yatzy {
 	private dice: number[];
 
-	constructor(d1: number, d2: number, d3: number, d4: number, _5: number) {
-		this.dice = [];
-		this.dice[0] = d1;
-		this.dice[1] = d2;
-		this.dice[2] = d3;
-		this.dice[3] = d4;
-		this.dice[4] = _5;
-	}
+	getDiece(): number[] {
+		return this.dice
+	} 
 
-	static chance(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var total = 0;
-		total += d1;
-		total += d2;
-		total += d3;
-		total += d4;
-		total += d5;
-		return total;
-	}
-
-	static yatzy(...args: number[]): number {
-		var counts = [0, 0, 0, 0, 0, 0, 0, 0];
-		for (var i = 0; i != args.length; ++i) {
-			var die = args[i];
-			counts[die - 1]++;
-		}
-		for (i = 0; i != 6; i++) if (counts[i] == 5) return 50;
-		return 0;
-	}
-
-	static ones(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var sum = 0;
-		if (d1 == 1) sum++;
-		if (d2 == 1) sum++;
-		if (d3 == 1) sum++;
-		if (d4 == 1) sum++;
-		if (d5 == 1) sum++;
-
-		return sum;
-	}
-
-	static twos(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var sum = 0;
-		if (d1 == 2) sum += 2;
-		if (d2 == 2) sum += 2;
-		if (d3 == 2) sum += 2;
-		if (d4 == 2) sum += 2;
-		if (d5 == 2) sum += 2;
-		return sum;
-	}
-
-	static threes(d1: number, d2: number, d3: number, d4: number, d5: number): number {
-		var s;
-		s = 0;
-		if (d1 == 3) s += 3;
-		if (d2 == 3) s += 3;
-		if (d3 == 3) s += 3;
-		if (d4 == 3) s += 3;
-		if (d5 == 3) s += 3;
-		return s;
+	constructor(playValues: number[]) {
+		this.dice = playValues
 	}
 
 	private static buildTallies(dice: number[]): number[] {
@@ -71,6 +18,60 @@ export default class Yatzy {
 		}
 
 		return tallies
+	}
+
+
+	static chance(playValues: number[]): number {
+		var total = 0;
+		total += playValues[0];
+		total += playValues[1];
+		total += playValues[2];
+		total += playValues[3];
+		total += playValues[4];
+		return total;
+	}
+
+	static yatzy(...args: number[]): number {
+		var counts = [0, 0, 0, 0, 0, 0, 0, 0];
+
+		for (var i = 0; i != args.length; ++i) {
+			var die = args[i];
+			counts[die - 1]++;
+		}
+		for (i = 0; i != 6; i++) if (counts[i] == 5) return 50;
+		return 0;
+	}
+
+	static ones(playValues: number[]): number {
+		var sum = 0;
+		if (playValues[0] == 1) sum++;
+		if (playValues[1] == 1) sum++;
+		if (playValues[2] == 1) sum++;
+		if (playValues[3] == 1) sum++;
+		if (playValues[4] == 1) sum++;
+
+		return sum;
+	}
+
+	static twos(playValues: number[]): number {
+		var sum = 0;
+		if (playValues[0] == 2) sum += 2;
+		if (playValues[1] == 2) sum += 2;
+		if (playValues[2] == 2) sum += 2;
+		if (playValues[3] == 2) sum += 2;
+		if (playValues[4] == 2) sum += 2;
+		return sum;
+	}
+
+	static threes(playValues: number[]): number {
+		var s;
+		s = 0;
+		if (playValues[0] == 3) s += 3;
+		if (playValues[1] == 3) s += 3;
+		if (playValues[2] == 3) s += 3;
+		if (playValues[3] == 3) s += 3;
+		if (playValues[4] == 3) s += 3;
+		return s;
 	}
 
 	static score_pair(playValues: number[]): number {
@@ -152,7 +153,7 @@ export default class Yatzy {
 		var sum;
 		sum = 0;
 		for (let at = 0; at != 5; at++) {
-			if (this.dice[at] == 4) {
+			if (this.getDiece()[at] == 4) {
 				sum += 4;
 			}
 		}
@@ -162,13 +163,13 @@ export default class Yatzy {
 	fives(): number {
 		let s = 0;
 		var i;
-		for (i = 0; i < this.dice.length; i++) if (this.dice[i] == 5) s = s + 5;
+		for (i = 0; i < this.getDiece().length; i++) if (this.getDiece()[i] == 5) s = s + 5;
 		return s;
 	}
 
 	sixes(): number {
 		let sum = 0;
-		for (var at = 0; at < this.dice.length; at++) if (this.dice[at] == 6) sum = sum + 6;
+		for (var at = 0; at < this.getDiece().length; at++) if (this.getDiece()[at] == 6) sum = sum + 6;
 		return sum;
 	}
 }
